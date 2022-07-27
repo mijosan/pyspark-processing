@@ -11,6 +11,6 @@ spark = (SparkSession
 
 blogs_df = spark.createDataFrame(data, schema)
 
-# blogs_df.show()
+blogs_df.show()
 
 print(blogs_df.printSchema())

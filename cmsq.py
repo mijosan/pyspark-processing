@@ -52,8 +52,15 @@ bar.filter(expr("""origin == 'SEA' AND destination == 'SFO' AND date LIKE '01010
     .select("City", "State", "date", "delay", "distance", "destination")
     .show())
 
+# 열 추가
+foo2 = (foo.withColumn("status", expr("CASE WHEN delay <= 10 THEN 'On-time' ELSE 'Delayed' END")))
+foo2.show()
 
+# 열 삭제
+foo3 = foo2.drop("delay")
+foo3.show()
 
-
-
+# 칼럼명 바꾸기
+foo4 = foo3.withColumnRenamed("status", "flight_status")
+foo4.show()
 

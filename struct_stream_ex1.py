@@ -21,4 +21,4 @@ streamingQuery = (words
           .outputMode("append")
           .trigger(processingTime="1 second")
           .option("checkpointLocation", checkpointDir)
-          .start().awaitTermination())
+          .start().lastProgress().awaitTermination())

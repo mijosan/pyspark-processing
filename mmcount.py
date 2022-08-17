@@ -15,10 +15,15 @@ mnm_df = (spark.read.format("csv")
           .option("inferSchema", "true")
           .load(mnm_file))
 
-count_mnm_df = (mnm_df
-                .select("State", "Color", "Count")
-                .collect())
+# 파티션 개수 spark.sql.files.maxpartitionBytes 의 옵션이 128MB이기 때문에 파티션은 1개다
+print(f'{mnm_df.rdd.getNumPartitions()}{"개"}')
 
-print(count_mnm_df)
-count_mnm_df.show(n=60, truncate=False)
-print("Total Rows = %d" % (count_mnm_df.count()))
+# 리파티션
+rp_mnm_df = mnm_df.repartition(6)
+print(f'{rp_mnm_df.rdd.getNumPartitions()}{"개"}')
+
+# 셔플하면 파티션 변화 spark.sql.shuffle.partitions 기본값은 200
+sf_mnm_df = (rp_mnm_df.groupBy("State")
+                .count())
+print(sf_mnm_df.show())
+print(f'{sf_mnm_df.rdd.getNumPartitions()}{"개"}')

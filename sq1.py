@@ -34,3 +34,7 @@ spark.sql("""SELECT  delay,  origin, destination,
         ELSE   'Early'
     END  AS  Flight_Delays FROM  us_delay_flights_tbl
     ORDER   BY  origin,  delay DESC""").show(10)
+
+
+while True:
+    print()

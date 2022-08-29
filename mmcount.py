@@ -18,6 +18,8 @@ mnm_df = (spark.read.format("csv")
           .option("inferSchema", "true")
           .load(mnm_file))
 
+print(spark.conf.get("spark.sql.adaptive.coalescePartitions.parallelismFirst"))
+
 # 파티션 개수 spark.sql.files.maxpartitionBytes 의 옵션이 128MB이기 때문에 파티션은 1개다
 print(f'{mnm_df.rdd.getNumPartitions()}{"개"}')
 
@@ -31,5 +33,5 @@ sf_mnm_df = (mnm_df.groupBy("State")
 # print(sf_mnm_df.show())
 print(f'{sf_mnm_df.rdd.getNumPartitions()}{"개"}')
 
-while True:
-    print("")
+# while True:
+#     print("")

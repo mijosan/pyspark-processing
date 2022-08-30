@@ -29,5 +29,5 @@ spark.sql("""drop table trip_table""")
 
 df2 = spark.sql("""SELECT * FROM trip_table""")
 
-df2.show()
+df2.show() 
 

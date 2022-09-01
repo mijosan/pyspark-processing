@@ -47,7 +47,7 @@ dfConverted2.select("education").distinct().show()
 # 1. 이 과정에서 `to_date` 함수를 사용해 타입을 변경하고
 # 2. `add_months` 함수를 통해 72개월 (= 6년) 을 기존 값에 추가했습니다.
 dfWithJoined = dfConverted2.withColumn(
-    "date_joined", add_months(to_date(col("date_customer"), "d-M-yyyy"), 72)
+    "date_joined", add_months(to_date(col("date_customer"), "dd-MM-yyyy"), 72)
 )
 
 dfWithJoined.select("date_customer", "date_joined").limit(5).show()
